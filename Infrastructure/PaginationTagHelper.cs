@@ -27,8 +27,11 @@ namespace Amazon.Infrastructure
 
         public PageInfo PageInfo { get; set; }
         public string PageAction { get; set; }
+        public string PageClass { get; set; } // we use these to dynamically style the page numbers at the bottom
         public bool PageClassesEnabled { get; set; }
-        public string PageClass { get; set; }
+        public string PageClassNormal { get; set; }
+        public string PageClassSelected { get; set; }
+        
 
         public override void Process (TagHelperContext thc, TagHelperOutput tho)
         {
@@ -41,6 +44,15 @@ namespace Amazon.Infrastructure
                 TagBuilder tb = new TagBuilder("a");
 
                 tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                if (PageClassesEnabled)
+                {
+                    tb.AddCssClass(PageClass);
+                    tb.AddCssClass(i == PageInfo.CurrentPage ? PageClassSelected : PageClassNormal);
+                    // this code above makes it so that the page number button on the bottom is highlighted different if we are 
+                    // on that page.
+                }
+                tb.AddCssClass(PageClass);
                 tb.InnerHtml.Append(i.ToString());
 
                 final.InnerHtml.AppendHtml(tb);

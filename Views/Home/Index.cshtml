@@ -3,21 +3,13 @@
 
 @model BooksViewModel
 
-<h1>Amazon Books</h1>
-
 @foreach (Book b in Model.Books)
 {
-    <h3>@b.Title</h3>
-
-    <ul>
-        <li>Author: @b.Author</li>
-        <li>Publisher: @b.Publisher</li>
-        <li>ISBN: @b.Isbn</li>
-        <li>Classification: @b.Classification</li>
-        <li>Category: @b.Category</li>
-        <li>Number of Pages: @b.PageCount</li>
-        <li>Price: @b.Price</li>
-    </ul>
+    <partial name="BookSummary" model="b" />
+// this goes to our BookSummary partial view inside our Shared folder
 }
 
-<div page-info="@Model.PageInfo" page-action="Index" page-classes-enabled="true" page-class="btn"></div>
+<!--these are styling the buttons, and correspond to code in our paginationtaghelper file-->
+<div page-info="@Model.PageInfo" page-action="Index" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+     page-classes-enabled="true" class="btn-group pull-right m-1"></div> 

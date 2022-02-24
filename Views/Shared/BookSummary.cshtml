@@ -1,0 +1,20 @@
+﻿@*
+    This page is a partial view that is referred to by the index.    
+*@
+
+@{
+}
+
+@model Book
+
+<h3>@Model.Title</h3>
+
+<ul>
+    <li>Author: @Model.Author</li>
+    <li>Publisher: @Model.Publisher</li>
+    <li>ISBN: @Model.Isbn</li>
+    <li>Classification: @Model.Classification</li>
+    <li>Category: @Model.Category</li>
+    <li>Number of Pages: @Model.PageCount</li>
+    <li>Price: @Model.Price</li>
+</ul>
