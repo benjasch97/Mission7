@@ -36,6 +36,15 @@ namespace Amazon
             });
 
             services.AddScoped<IAmazonRepository, EFAmazonRepository>();
+            services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
+
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +57,7 @@ namespace Amazon
 
             // corresponds to wwwroot
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -57,13 +66,17 @@ namespace Amazon
                     "{bookCategory}/Page{pageNum}",
                     new { Controller = "Home", action = "Index" });
 
-                endpoints.MapControllerRoute("Paging", "Page{pageNum}", new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("Paging", 
+                    "Page{pageNum}", 
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
 
                 endpoints.MapControllerRoute("category",
                     "{bookCategory}",
                     new { Controller = "Home", action = "Index", pageNum = 1 });
-                
+
                 endpoints.MapDefaultControllerRoute(); // this is different than what we normally have, but this works the same
+
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -1,5 +1,5 @@
 ﻿@*
-    This page is a partial view that is referred to by the index.    
+    This page is a partial view that is referred to by the index.
 *@
 
 @{
@@ -7,14 +7,31 @@
 
 @model Book
 
-<h3>@Model.Title</h3>
+<div class="card card-outline-primary m-1 p-1">
 
-<ul>
-    <li>Author: @Model.Author</li>
-    <li>Publisher: @Model.Publisher</li>
-    <li>ISBN: @Model.Isbn</li>
-    <li>Classification: @Model.Classification</li>
-    <li>Category: @Model.Category</li>
-    <li>Number of Pages: @Model.PageCount</li>
-    <li>Price: @Model.Price</li>
-</ul>
+    <div class="bg-light p-1">
+        <h4>@Model.Title</h4>
+    </div>
+
+    <ul>
+        <li>Author: @Model.Author</li>
+        <li>Publisher: @Model.Publisher</li>
+        <li>ISBN: @Model.Isbn</li>
+        <li>Classification: @Model.Classification</li>
+        <li>Category: @Model.Category</li>
+        <li>Number of Pages: @Model.PageCount</li>
+        <li>Price: @Model.Price</li>
+    </ul>
+
+    <form method="post" asp-page="/Purchase">
+
+        <input type="hidden" asp-for="@Model.BookId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-end">Purchase</button>
+        </span>
+
+    </form>
+
+</div>
