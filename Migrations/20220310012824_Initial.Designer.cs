@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Amazon.Migrations
 {
     [DbContext(typeof(BookstoreContext))]
-    [Migration("20220303051204_Initial")]
+    [Migration("20220310012824_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace Amazon.Migrations
                     b.Property<long?>("BookId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PurchaseNounBookId")
+                    b.Property<int?>("PurchaseNounPurchaseId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
@@ -37,7 +37,7 @@ namespace Amazon.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("PurchaseNounBookId");
+                    b.HasIndex("PurchaseNounPurchaseId");
 
                     b.ToTable("BasketLineItem");
                 });
@@ -85,7 +85,7 @@ namespace Amazon.Migrations
 
             modelBuilder.Entity("Amazon.Models.PurchaseNoun", b =>
                 {
-                    b.Property<int>("BookId")
+                    b.Property<int>("PurchaseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -111,6 +111,9 @@ namespace Amazon.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Shipped")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -118,7 +121,7 @@ namespace Amazon.Migrations
                     b.Property<string>("Zip")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("BookId");
+                    b.HasKey("PurchaseId");
 
                     b.ToTable("Purchases");
                 });
@@ -131,7 +134,7 @@ namespace Amazon.Migrations
 
                     b.HasOne("Amazon.Models.PurchaseNoun", null)
                         .WithMany("Lines")
-                        .HasForeignKey("PurchaseNounBookId");
+                        .HasForeignKey("PurchaseNounPurchaseId");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,5 +9,9 @@ namespace Amazon.Models
     {
         IQueryable<Book> Books { get; }   // this is a class that is set up specifically for querying tables
 
+        public void SaveBook(Book b);
+        public void CreateBook(Book b);
+        public void DeleteBook(Book b);
+
     }
 }

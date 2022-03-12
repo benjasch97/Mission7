@@ -7,8 +7,8 @@ namespace Amazon.Models
 {
     public interface IPurchaseRepository
     {
-        public IQueryable<PurchaseNoun> Purchases { get; }
+        IQueryable<PurchaseNoun> Purchases { get; }
 
-        public void SavePurchase(PurchaseNoun purchase);
+        void SavePurchase(PurchaseNoun purchase);
     }
 }
